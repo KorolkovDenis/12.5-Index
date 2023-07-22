@@ -1,10 +1,19 @@
-### Домашнее задание к занятию «Индексы»
+### Домашнее задание к занятию «Индексы» - Корольков Денис
 
 ### Задание 1
 
 Напишите запрос к учебной базе данных, который вернёт процентное отношение общего размера всех индексов к общему размеру всех таблиц.
 
 Ответ:
+
+Наш запрос к учебной базе данных, который вернёт процентное отношение общего размера всех индексов к общему размеру всех таблиц
+
+```
+SELECT TABLE_SCHEMA AS db_name, CONCAT(ROUND(SUM(index_length)*100 / (SUM(data_length+ index_length)), 2), ‘%’) AS ‘% index’
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = ‘sakila’;
+```
+![screen1](https://github.com/KorolkovDenis/)
 
 
 ### Задание 2
@@ -20,7 +29,18 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 
 Ответ:
 
+Узкое место – излишняя обработка оконной функции over (partition by..  – таких таблиц rental, inventory, film. Т.к. нужно посчитать сумму платежей покупателей за конкретную дату, обработка и присоединение таблиц rental, inventory, film излишня. Всю необходимую информацию можно получить из таблиц payment и customer, соответственно, остальные таблицы удаляем.
 
+Итог моего запроса:
+```
+select distinct concat(c.last_name, ' ', c.first_name), sum(p.amount) over (partition by c.customer_id)
+from payment p, customer c
+where date(p.payment_date) = '2005-07-30' and p.customer_id = c.customer_id
+```
+
+![screen2](https://github.com/KorolkovDenis/)
+
+Этими действиями мы уменьшили во много раз время обработки запроса actual time =4.5..4.52. А был первоначально actual time = 5900..5900.
 
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
@@ -33,3 +53,7 @@ where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and
 
 Ответ:
 
+![screen3](https://github.com/KorolkovDenis/)
+
+
+[Cсылка на google docs по «Индексы»](https://docs.google.com/document/d/1sR6GNwFNSvLkm7zELSIrXcB-ID9cX-5B/edit?usp=drive_link&ouid=104113173630640462528&rtpof=true&sd=true)
