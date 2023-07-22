@@ -13,7 +13,7 @@ SELECT TABLE_SCHEMA AS db_name, CONCAT(ROUND(SUM(index_length)*100 / (SUM(data_l
 FROM INFORMATION_SCHEMA.TABLES
 WHERE TABLE_SCHEMA = ‘sakila’;
 ```
-![screen1](https://github.com/KorolkovDenis/)
+![screen1](https://github.com/KorolkovDenis/12.5-Index/blob/main/screenshots/screen1.jpg)
 
 
 ### Задание 2
@@ -38,7 +38,7 @@ from payment p, customer c
 where date(p.payment_date) = '2005-07-30' and p.customer_id = c.customer_id
 ```
 
-![screen2](https://github.com/KorolkovDenis/)
+![screen2](https://github.com/KorolkovDenis/12.5-Index/blob/main/screenshots/screen2.jpg)
 
 Этими действиями мы уменьшили во много раз время обработки запроса actual time =4.5..4.52. А был первоначально actual time = 5900..5900.
 
@@ -53,7 +53,7 @@ where date(p.payment_date) = '2005-07-30' and p.customer_id = c.customer_id
 
 Ответ:
 
-![screen3](https://github.com/KorolkovDenis/)
+![screen3](https://github.com/KorolkovDenis/12.5-Index/blob/main/screenshots/screen3.jpg)
 
 
 [Cсылка на google docs по «Индексы»](https://docs.google.com/document/d/1sR6GNwFNSvLkm7zELSIrXcB-ID9cX-5B/edit?usp=drive_link&ouid=104113173630640462528&rtpof=true&sd=true)
