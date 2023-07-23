@@ -42,6 +42,15 @@ where date(p.payment_date) = '2005-07-30' and p.customer_id = c.customer_id
 
 Этими действиями мы уменьшили во много раз время обработки запроса actual time =4.5..4.52. А был первоначально actual time = 5900..5900.
 
+По Вашим замечаниям немного подправил скрипт. Убрал over (partition by c.customer_id) - добавил группировку по имени group by name, оставил rental r и inventory i
+```
+select  concat(c.last_name, ' ', c.first_name) as name, sum(p.amount)
+from payment p, rental r, customer c, inventory i
+where date(p.payment_date) = '2005-07-30' and p.payment_date = r.rental_date and r.customer_id = c.customer_id and i.inventory_id = r.inventory_id
+group by name
+```
+![screen4](https://github.com/KorolkovDenis/12.5-Index/blob/main/screenshots/screen4.jpg)
+
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению, и никак не повлияют на получение вами зачёта по этому домашнему заданию. Вы можете их выполнить, если хотите глубже шире разобраться в материале.
 
